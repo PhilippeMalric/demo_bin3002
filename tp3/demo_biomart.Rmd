@@ -1,0 +1,56 @@
+---
+title: "BiomaRt Demo"
+author: "Marc-André Legault"
+date: "September 19, 2014"
+output: pdf_document
+---
+
+# Créer une connexion vers la BD
+
+```{r}
+library("biomaRt")
+ensembl = useMart("ensembl")
+
+# On peut ensuite voir les jeux de données
+# On utilise head pour afficher seulement quelques entrées.
+datasets = listDatasets(ensembl)
+head(datasets)
+
+# On peut remarquer que le dataset #31 est l'humain:
+datasets[31,]
+
+# Choisissons donc ce dataset.
+ensembl = useDataset("hsapiens_gene_ensembl", mart=ensembl)
+# Alternativement, nous aurions pu le faire dès le début.
+# ensembl = useMart("ensembl",dataset="hsapiens_gene_ensembl")
+
+class(ensembl)
+
+```
+
+Maintenant, nous avons un objet R de type "Mart" qui nous permet de rechercher dans la base de donnée sélectionnée. Pour ce faire, nous utiliserons:
+
+- Attribute: Les champs que nous voulons sélectionner. Comme dans un `SELECT` en SQL.
+- Filter: Un champ sur lequel nous voulons établir une contrainte. Comme un `WHERE` en SQL.
+- Values: Les valeurs correspondant aux _filters_.
+
+```{r}
+
+attributes = listAttributes(ensembl)
+# Affichons certains attributs.
+head(attributes, n=10)
+
+# Nous pouvons effectuer des requêtes avec la fonction getBM.
+chromYGenes <- getBM(
+  attributes=c("ensembl_gene_id", "external_gene_id", "chromosome_name", 
+               "start_position", "end_position"),
+  filters=c("chromosome_name"),
+  values=c("Y"),
+  mart=ensembl
+)
+head(chromYGenes)
+
+# Vous ferez la même chose avec la liste de SNPs fournis. 
+# Essayez d'aller chercher les scores SIFT et PolyPhen pour ces variants.
+
+```

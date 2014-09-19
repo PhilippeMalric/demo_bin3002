@@ -1,0 +1,7 @@
+sqlite> create table snps (sample TEXT, rs TEXT, geno TEXT, quality TEXT);
+sqlite> .import TP3_genotypes.tsv snps
+Error: TP3_genotypes.tsv line 1: expected 4 columns of data but found 1
+sqlite> .separator "    "
+sqlite> .import TP3_genotypes.tsv snps
+sqlite> select count(*) from snps;
+51933
