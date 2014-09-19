@@ -31,7 +31,7 @@ con = pymysql.connect(
 ## Ressources
 
 *Important!* J'ai prepare un _notebook_ disponible dans ce repo. Vous pouvez 
-aussi le visionner [sur nbviewer](http://nbviewer.ipython.org/github/legaultmarc/demo_bin3002/blob/master/Tutorial.ipynb).
+aussi le visionner [sur nbviewer](http://nbviewer.ipython.org/github/legaultmarc/demo_bin3002/blob/master/tp2/Tutorial.ipynb).
 
 ### Python
 
